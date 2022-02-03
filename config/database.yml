@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV.fetch("POSTGRES_USER") { 'postgres' } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { '1234567' } %>
+  host: <%= ENV.fetch("POSGTRES_HOST") { '127.0.0.1' } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: kidon_api_development
+
+test:
+  <<: *default
+  database: kidon_api_test
+
+production:
+  <<: *default
+  database: kidon_api_production
+  username: kidon_api
+  password: <%= ENV['KIDON_API_DATABASE_PASSWORD'] %>
